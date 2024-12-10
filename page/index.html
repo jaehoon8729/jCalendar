@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head id="head-placeholder">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="../css/calenderStyle.css">
+
+    <script type="module" src="../js/calender.js"></script>
+
+    <script type="module">
+        import Alpine from '../lib/alpinejs@3.14.1.esm.min.js';
+
+        window.Alpine = Alpine;
+        Alpine.start();
+    </script>
+</head>
+<body>
+    <div x-data="calendar">
+        <div class="calendar">
+            <div class="header">
+                <button @click="previousMonth">&lt;</button>
+                <span x-text="`${selectedYear}년 ${monthNames[selectedMonth]}`"></span>
+                <button @click="nextMonth">&gt;</button>
+            </div>
+
+            <div class="days">
+                <div>일</div>
+                <div>월</div>
+                <div>화</div>
+                <div>수</div>
+                <div>목</div>
+                <div>금</div>
+                <div>토</div>
+            </div>
+
+            <div class="dates">
+                <template x-for="date in dates" :key="date.id">
+                    <div
+                            :class="{
+                                'date': true,
+                                'other-month': !date.isCurrentMonth,
+                                'today': isToday(date.day),
+                                'has-events': hasEvents(date.day)
+                            }"
+                            @click="showEvents(date.day)"
+                    >
+                        <div class="date-number" x-text="date.day"></div>
+                        <template x-if="hasEvents(date.day)">
+                            <div class="date-preview">
+                                <template x-for="event in getDateEvents(date.day).slice(0, 2)" :key="event">
+                                    <div x-text="event"></div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <div class="events-panel" x-show="selectedDay !== null">
+            <h3 x-text="`${selectedYear}년 ${selectedMonth + 1}월 ${selectedDay}일의 일정`"></h3>
+
+            <div class="event-input">
+                <input
+                        type="text"
+                        x-model="newEvent"
+                        @keyup.enter="addEvent"
+                        placeholder="일정을 입력하세요"
+                >
+                <button @click="addEvent">추가</button>
+            </div>
+
+            <div class="event-list">
+                <template x-for="(event, index) in currentEvents" :key="index">
+                    <div class="event-item">
+                        <span x-text="event"></span>
+                        <span class="delete-event" @click="deleteEvent(index)">❌</span>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
