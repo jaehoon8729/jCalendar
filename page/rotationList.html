@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>반 관리</title>
+    <link rel="stylesheet" href="../css/rotationList.css">
+    <script type="module" src="../js/rotationList.js"></script>
+
+    <script type="module">
+        import Alpine from '../lib/alpinejs@3.14.1.esm.min.js';
+
+        window.Alpine = Alpine;
+        Alpine.start();
+    </script>
+</head>
+<body>
+<div x-data="classManagement">
+    <div class="container">
+        <div class="header">
+            <h2>반 관리</h2>
+        </div>
+
+        <!-- 탭 버튼 -->
+        <div class="tab-buttons">
+            <button
+                    @click="activeTab = 'morning'"
+                    :class="{ 'active': activeTab === 'morning' }"
+                    class="tab-btn">오전</button>
+            <button
+                    @click="activeTab = 'afternoon'"
+                    :class="{ 'active': activeTab === 'afternoon' }"
+                    class="tab-btn">오후</button>
+        </div>
+
+        <!-- 탭 컨텐츠 -->
+        <div class="tab-content">
+            <!-- 오전 섹션 -->
+            <div x-show="activeTab === 'morning'" class="period-section">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>순서</th>
+                        <th>반이름</th>
+                        <th>담당T</th>
+                        <th>관리</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <template x-for="(classItem, index) in classes.morning" :key="classItem.id">
+                        <tr>
+                            <td x-text="index + 1"></td>
+                            <td x-text="classItem.name"></td>
+                            <td x-text="classItem.teacher"></td>
+                            <td>
+                                <div class="button-group">
+                                    <button @click="openModal('morning', classItem)" class="edit-btn">수정</button>
+                                    <button @click="deleteClass('morning', classItem.id)" class="delete-btn">삭제</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </template>
+                    </tbody>
+                </table>
+                <button @click="openModal('morning')" class="add-btn">추가</button>
+            </div>
+
+            <!-- 오후 섹션 -->
+            <div x-show="activeTab === 'afternoon'" class="period-section">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>순서</th>
+                        <th>반이름</th>
+                        <th>담당T</th>
+                        <th>관리</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <template x-for="(classItem, index) in classes.afternoon" :key="classItem.id">
+                        <tr>
+                            <td x-text="index + 1"></td>
+                            <td x-text="classItem.name"></td>
+                            <td x-text="classItem.teacher"></td>
+                            <td>
+                                <div class="button-group">
+                                    <button @click="openModal('afternoon', classItem)" class="edit-btn">수정</button>
+                                    <button @click="deleteClass('afternoon', classItem.id)" class="delete-btn">삭제</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </template>
+                    </tbody>
+                </table>
+                <button @click="openModal('afternoon')" class="add-btn">추가</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 모달 -->
+    <div x-show="showModal" class="modal" @click.self="closeModal">
+        <div class="modal-content">
+            <h2 x-text="isEditing ? '반 정보 수정' : '새로운 반 추가'"></h2>
+            <div class="input-group">
+                <label for="className">반 이름</label>
+                <input type="text" id="className" x-model="newClass.name" placeholder="반 이름을 입력하세요">
+            </div>
+            <div class="input-group">
+                <label for="teacherName">담당 선생님</label>
+                <input type="text" id="teacherName" x-model="newClass.teacher" placeholder="담당 선생님 이름을 입력하세요">
+            </div>
+            <div class="modal-buttons">
+                <button class="cancel-btn" @click="closeModal">취소</button>
+                <button class="save-btn" @click="saveClass">저장</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

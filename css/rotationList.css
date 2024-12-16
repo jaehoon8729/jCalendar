@@ -1,0 +1,320 @@
+/* 기존 CSS 유지 */
+body {
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    padding: 20px;
+}
+
+.header {
+    background: linear-gradient(135deg, #6e8efb, #4a6cf7);
+    padding: 20px;
+    text-align: center;
+    border-radius: 15px;
+    color: white;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+.header h2 {
+    margin: 0;
+    font-weight: 500;
+}
+
+/* 탭 관련 새로운 스타일 */
+.tab-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 0 10px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 15px;
+    background: #f8f9fa;
+    border: none;
+    border-radius: 10px;
+    color: #4a6cf7;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    background: #e9ecef;
+    transform: translateY(-1px);
+}
+
+.tab-btn.active {
+    background: #4a6cf7;
+    color: white;
+}
+
+.tab-content {
+    background: white;
+    border-radius: 10px;
+}
+
+/* 기존 period-section 스타일 수정 */
+.period-section {
+    margin-bottom: 30px;
+    padding: 0 10px;
+}
+
+/* 나머지 기존 스타일 유지 */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 20px;
+}
+
+th {
+    background: #f8f9fa;
+    color: #333;
+    padding: 15px;
+    text-align: center;
+    border-bottom: 2px solid #eee;
+}
+
+td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    background: white;
+}
+
+tr:hover td {
+    background-color: #f8f9fa;
+}
+
+.button-group {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 0.95em;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+}
+
+.edit-btn {
+    background: #ffd966;
+    color: #333;
+}
+
+.edit-btn:hover {
+    background: #ffd133;
+}
+
+.delete-btn {
+    background: #ff4757;
+    color: white;
+}
+
+.delete-btn:hover {
+    background: #ff2939;
+}
+
+.add-btn {
+    background: #4a6cf7;
+    color: white;
+    margin-top: 10px;
+}
+
+.add-btn:hover {
+    background: #3955d9;
+}
+
+/* 모달 스타일 */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal[x-show] {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    width: 400px;
+    max-width: 90%;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    position: relative;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: 500;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 500;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    font-size: 0.95em;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #4a6cf7;
+    box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.save-btn {
+    background: #4a6cf7;
+    color: white;
+    padding: 10px 20px;
+}
+
+.save-btn:hover {
+    background: #3955d9;
+}
+
+.cancel-btn {
+    background: #eee;
+    color: #333;
+    padding: 10px 20px;
+}
+
+.cancel-btn:hover {
+    background: #e1e1e1;
+}
+
+/* 모바일 반응형 */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        margin: 10px auto;
+        padding: 15px;
+    }
+
+    .header {
+        padding: 15px;
+    }
+
+    /* 탭 버튼 모바일 스타일 */
+    .tab-buttons {
+        gap: 5px;
+        padding: 0 5px;
+    }
+
+    .tab-btn {
+        padding: 12px 8px;
+        font-size: 0.9em;
+    }
+
+    table {
+        font-size: 0.9em;
+    }
+
+    th, td {
+        padding: 10px 8px;
+    }
+
+    .button-group {
+        flex-direction: row;
+        gap: 6px;
+    }
+
+    button {
+        padding: 6px 12px;
+        font-size: 0.9em;
+    }
+
+    .modal-content {
+        width: calc(100% - 40px);
+        padding: 20px;
+        margin: 20px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .input-group input {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .modal-buttons {
+        margin-top: 20px;
+    }
+
+    .modal-buttons button {
+        padding: 8px 16px;
+    }
+}
+
+/* 작은 모바일 화면 */
+@media screen and (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+
+    .button-group {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .button-group button {
+        width: 100%;
+    }
+
+    .modal-content {
+        padding: 15px;
+    }
+}
