@@ -199,3 +199,160 @@ h3 {
     background: #4a6cf7;
     border-radius: 50%;
 }
+
+/* 모바일 반응형 스타일 */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .calendar {
+        margin: 10px auto;
+        padding: 10px;
+    }
+
+    .dates {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+    }
+
+    .days {
+        grid-template-columns: repeat(4, 1fr);
+        padding: 10px;
+    }
+
+    .days > div:nth-child(n+5) {
+        display: none;
+    }
+
+    .date {
+        min-height: 120px;
+        padding: 10px;
+    }
+
+    .date-number {
+        font-size: 1.1em;
+        margin-bottom: 8px;
+    }
+
+    .date-preview {
+        font-size: 0.85em;
+        -webkit-line-clamp: 3;
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+    }
+
+    .event-input {
+        flex-direction: column;
+    }
+
+    .event-input button {
+        width: 100%;
+    }
+}
+
+/* 더 작은 모바일 화면 */
+@media screen and (max-width: 480px) {
+    .calendar {
+        margin: 5px auto;
+        padding: 8px;
+    }
+
+    .dates {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+    }
+
+    .days {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .date {
+        min-height: 100px;
+    }
+
+    .days > div:nth-child(n+4) {
+        display: none;
+    }
+
+    .events-panel {
+        padding: 15px;
+    }
+}
+/* 파일 컨트롤 스타일 */
+.file-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.export-btn, .import-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 8px 15px;
+    border-radius: 8px;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.export-btn:hover, .import-btn:hover {
+    background: rgba(255,255,255,0.3);
+    transform: translateY(-1px);
+}
+
+.import-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.icon {
+    font-size: 1.2em;
+}
+
+.month-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.month-controls span {
+    min-width: 150px;
+    text-align: center;
+}
+
+/* 모바일 반응형 조정 */
+@media screen and (max-width: 768px) {
+    .header {
+        gap: 15px;
+    }
+
+    .file-controls {
+        flex-direction: row;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .export-btn, .import-btn {
+        padding: 6px 12px;
+        font-size: 0.9em;
+    }
+}
