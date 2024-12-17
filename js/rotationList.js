@@ -74,12 +74,8 @@ Alpine.data('classManagement', () => ({
                     const index = row.getAttribute('data-index');
                     const num = index.toString().charAt(2);
                     this.classes[period][num].order = idx;
-                    console.log("num", num);
-                    console.log("class",this.classes[period][num]);
-                    return this.classes[period][index.toString().charAt(2)];
+                    return this.classes[period][num];
                 });
-                console.log("activeTab", this.activeTab);
-                console.log("new", {[period] : newOrder});
 
                 // 상태 업데이트
                 this.classes = {
@@ -87,7 +83,6 @@ Alpine.data('classManagement', () => ({
                     ...this.classes,
                 };
 
-                // 저장
                 this.saveClasses();
             }
         });
