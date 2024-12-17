@@ -166,6 +166,16 @@ button:hover {
     background: #3955d9;
 }
 
+.set-btn {
+    background: #71dc8e;
+    color: white;
+    margin-top: 10px;
+}
+
+.set-btn:hover {
+    background: #48a15d;
+}
+
 /* 모달 스타일 */
 .modal {
     display: none;
