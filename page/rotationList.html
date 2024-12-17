@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>반 관리</title>
+    <title></title>
     <link rel="stylesheet" href="../css/rotationList.css">
+    <script src="../lib/sortable.min.js"></script>
     <script type="module" src="../js/rotationList.js"></script>
 
     <script type="module">
@@ -40,29 +41,30 @@
                 <table>
                     <thead>
                     <tr>
+                        <th width="40px"></th>
                         <th>순서</th>
                         <th>반이름</th>
                         <th>담당T</th>
                         <th>관리</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <template x-for="(classItem, index) in classes.morning" :key="classItem.id">
-                        <tr>
-                            <td x-text="index + 1"></td>
-                            <td x-text="classItem.name"></td>
-                            <td x-text="classItem.teacher"></td>
+                    <tbody x-ref="morningTbody">
+                    <template x-for="(item, idx) in classes.morning">
+                        <tr :data-index="'am'+idx">
+                            <td class="handle">⋮⋮</td>
+                            <td x-text="idx + 1"></td>
+                            <td x-text="item.name"></td>
+                            <td x-text="item.teacher"></td>
                             <td>
                                 <div class="button-group">
-                                    <button @click="openModal('morning', classItem)" class="edit-btn">수정</button>
-                                    <button @click="deleteClass('morning', classItem.id)" class="delete-btn">삭제</button>
+                                    <button @click="openModal('morning', item)" class="edit-btn">수정</button>
+                                    <button @click="deleteClass('morning', item.id)" class="delete-btn">삭제</button>
                                 </div>
                             </td>
                         </tr>
                     </template>
                     </tbody>
                 </table>
-                <button @click="openModal('morning')" class="add-btn">추가</button>
             </div>
 
             <!-- 오후 섹션 -->
@@ -70,35 +72,41 @@
                 <table>
                     <thead>
                     <tr>
+                        <th width="40px"></th>
                         <th>순서</th>
                         <th>반이름</th>
                         <th>담당T</th>
                         <th>관리</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <template x-for="(classItem, index) in classes.afternoon" :key="classItem.id">
-                        <tr>
-                            <td x-text="index + 1"></td>
-                            <td x-text="classItem.name"></td>
-                            <td x-text="classItem.teacher"></td>
+                    <tbody x-ref="afternoonTbody">
+                    <template x-for="(item, idx) in classes.afternoon">
+                        <tr :data-index="'pm'+idx">
+                            <td class="handle">⋮⋮</td>
+                            <td x-text="idx + 1"></td>
+                            <td x-text="item.name"></td>
+                            <td x-text="item.teacher"></td>
                             <td>
                                 <div class="button-group">
-                                    <button @click="openModal('afternoon', classItem)" class="edit-btn">수정</button>
-                                    <button @click="deleteClass('afternoon', classItem.id)" class="delete-btn">삭제</button>
+                                    <button @click="openModal('afternoon', item)" class="edit-btn">수정</button>
+                                    <button @click="deleteClass('afternoon', item.id)" class="delete-btn">삭제</button>
                                 </div>
                             </td>
                         </tr>
                     </template>
                     </tbody>
                 </table>
-                <button @click="openModal('afternoon')" class="add-btn">추가</button>
+            </div>
+
+            <div style="display: flex;justify-content: space-between;">
+                <button @click="openModal('afternoon')" class="add-btn" style="margin-left: 5px;">추가</button>
+                <button class="add-btn" style="margin-right: 5px;">세팅</button>
             </div>
         </div>
     </div>
 
     <!-- 모달 -->
-    <div x-show="showModal" class="modal" @click.self="closeModal">
+    <div x-show="showModal" class="modal" @click.self="closeModal" style="display: none;">
         <div class="modal-content">
             <h2 x-text="isEditing ? '반 정보 수정' : '새로운 반 추가'"></h2>
             <div class="input-group">

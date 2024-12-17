@@ -1,9 +1,13 @@
+// calendar.js
+
+import StorageApi from './storageApi.js';
+
 document.addEventListener('alpine:init', () => {
     Alpine.data('calendar', () => ({
         init() {
-            const savedEvents = localStorage.getItem('calendarEvents');
+            const savedEvents = StorageApi.getData('calendarEvents');
             if (savedEvents) {
-                this.events = JSON.parse(savedEvents);
+                this.events = savedEvents;
             }
             this.updateCalendarDates();
         },
@@ -20,41 +24,29 @@ document.addEventListener('alpine:init', () => {
 
         // JSON 파일 내보내기
         exportToJson() {
-            const dataStr = JSON.stringify(this.events, null, 2);
-            const dataBlob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(dataBlob);
-
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `calendar-events-${this.selectedYear}-${this.selectedMonth + 1}.json`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
+            StorageApi.exportToJson('calendarEvents',
+                `calendar-events-${this.selectedYear}-${this.selectedMonth + 1}.json`);
         },
 
         // JSON 파일 불러오기
         importFromJson(event) {
             const file = event.target.files[0];
             if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    try {
-                        const importedEvents = JSON.parse(e.target.result);
-                        this.events = importedEvents;
-                        this.saveEventsToStorage();
+                StorageApi.importFromJson('calendarEvents', file)
+                    .then(() => {
+                        this.events = StorageApi.getData('calendarEvents');
                         this.updateCalendarDates();
                         alert('일정을 성공적으로 불러왔습니다.');
-                    } catch (error) {
+                    })
+                    .catch(error => {
                         alert('올바르지 않은 JSON 파일입니다.');
-                    }
-                };
-                reader.readAsText(file);
+                        console.error('Import error:', error);
+                    });
             }
         },
 
         saveEventsToStorage() {
-            localStorage.setItem('calendarEvents', JSON.stringify(this.events));
+            StorageApi.setData('calendarEvents', this.events);
         },
 
         updateCalendarDates() {
